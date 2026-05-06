@@ -17,6 +17,7 @@ from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired, UserAd
   
 import datetime  
 from SANYAMUSIC import app  
+from utils.permissions import admin_required
   
 def mention(user, name, mention=True):  
     if mention:  
