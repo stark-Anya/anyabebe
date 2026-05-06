@@ -17,7 +17,7 @@ from pyrogram.errors import ChatAdminRequired
 from functools import wraps
 from SANYAMUSIC import app
 
-OWNER_ID = 8275132868
+OWNER_ID = 5864182070
 def mention(user_id, name):
     return f"[{name}](tg://user?id={user_id})"
 
