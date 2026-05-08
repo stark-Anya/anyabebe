@@ -128,7 +128,7 @@ async def _autoplay_next(client, chat_id: int, last_played: dict):
                 original_chat_id,
                 video=None,
                 streamtype="youtube",
-                forceplay=None,
+                forceplay=True,
             )
         except Exception as e:
             LOGGER(__name__).error(f"Autoplay stream error: {e}")
