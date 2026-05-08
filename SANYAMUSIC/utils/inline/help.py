@@ -20,14 +20,14 @@ def help_pannel(_, start: bool = False):
     buttons = [
         [
             InlineKeyboardButton(text="◈ ᴍᴜsɪᴄ ◈", callback_data="help_category music"),
-            InlineKeyboardButton(text="◈ ᴍᴧηᴧɢᴇᴍᴇηᴛ ◈", callback_data="help_category management"),
+            InlineKeyboardButton(text="◈ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ ◈", callback_data="help_category management"),
         ],
         [
             InlineKeyboardButton(text="◈ ᴛᴏᴏʟs ◈", callback_data="help_category tools"),
             InlineKeyboardButton(text="◈ ғᴜɴ ◈", callback_data="help_category fun"),
         ],
         [
-            InlineKeyboardButton(text="◈ ʙᴏᴛ sᴇᴛᴛɪηɢs ◈", callback_data="help_category settings"),
+            InlineKeyboardButton(text="◈ ʙᴏᴛ sᴇᴛᴛɪɴɢs ◈", callback_data="help_category settings"),
         ],
     ]
 
@@ -73,16 +73,14 @@ def help_category_pannel(_, category):
             [InlineKeyboardButton(text="ɢʀᴏᴜᴘ sᴇᴛᴛɪɴɢs", callback_data="help_callback hb17 management"), InlineKeyboardButton(text=_["H_B_23"], callback_data="help_callback hb23 management")],
             [InlineKeyboardButton(text="ᴀᴘᴘʀᴏᴠᴇ", callback_data="help_callback hb36 management"), InlineKeyboardButton(text="ғɪʟᴛᴇʀs", callback_data="help_callback hb37 management")],
             [InlineKeyboardButton(text="ɴᴏᴛᴇs", callback_data="help_callback hb39 management"), InlineKeyboardButton(text="ɢʀᴏᴜᴘ ɪɴғᴏ", callback_data="help_callback hb46 management")],
-            [InlineKeyboardButton(text="ɢʀᴏᴜᴘ ᴍᴏᴅ", callback_data="help_callback hb49 management"), InlineKeyboardButton(text="ᴘʀᴏᴛᴇᴄᴛɪᴏɴ", callback_data="help_callback hb52 management")],
-            [InlineKeyboardButton(text=_["H_B_28"], callback_data="help_callback hb28 management")],
+            [InlineKeyboardButton(text="ɢʀᴏᴜᴘ ᴍᴏᴅ", callback_data="help_callback hb49 management")],
         ]
     elif category == "tools":
         buttons = [
             [InlineKeyboardButton(text=_["H_B_16"], callback_data="help_callback hb16 tools"), InlineKeyboardButton(text=_["H_B_22"], callback_data="help_callback hb22 tools")],
-            [InlineKeyboardButton(text=_["H_B_24"], callback_data="help_callback hb24 tools"), InlineKeyboardButton(text=_["H_B_27"], callback_data="help_callback hb27 tools")],
-            [InlineKeyboardButton(text=_["H_B_31"], callback_data="help_callback hb31 tools"), InlineKeyboardButton(text="ᴍᴇᴅɪᴀ/ᴡᴇʙ", callback_data="help_callback hb43 tools")],
+            [InlineKeyboardButton(text=_["H_B_24"], callback_data="help_callback hb24 tools"), InlineKeyboardButton(text=_["H_B_25"], callback_data="help_callback hb25 tools")],
+            [InlineKeyboardButton(text=_["H_B_31"], callback_data="help_callback hb31 tools"), InlineKeyboardButton(text=_["H_B_18"], callback_data="help_callback hb18 tools")],
             [InlineKeyboardButton(text="ᴇxᴛʀᴀ ᴛᴏᴏʟs", callback_data="help_callback hb21 tools"), InlineKeyboardButton(text=_["H_B_20"], callback_data="help_callback hb20 tools")],
-            [InlineKeyboardButton(text=_["H_B_25"], callback_data="help_callback hb25 tools"), InlineKeyboardButton(text=_["H_B_18"], callback_data="help_callback hb18 tools")],
         ]
     elif category == "fun":
         buttons = [
@@ -97,8 +95,7 @@ def help_category_pannel(_, category):
             [InlineKeyboardButton(text=_["H_B_10"], callback_data="help_callback hb10 settings"), InlineKeyboardButton(text="sᴇᴛᴛɪɴɢs", callback_data="help_callback hb44 settings")],
             [InlineKeyboardButton(text="ᴀssɪsᴛᴀɴᴛ", callback_data="help_callback hb38 settings"), InlineKeyboardButton(text=_["H_B_35"], callback_data="help_callback hb35 settings")],
             [InlineKeyboardButton(text=_["H_B_3"], callback_data="help_callback hb3 settings"), InlineKeyboardButton(text=_["H_B_9"], callback_data="help_callback hb9 settings")],
-            [InlineKeyboardButton(text="ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ", callback_data="help_callback hb48 settings"), InlineKeyboardButton(text="ᴅᴇᴠ ᴛᴏᴏʟs", callback_data="help_callback hb45 settings")],
-            [InlineKeyboardButton(text=_["H_B_34"], callback_data="help_callback hb34 settings")],
+            [InlineKeyboardButton(text="ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ", callback_data="help_callback hb48 settings"), InlineKeyboardButton(text=_["H_B_34"], callback_data="help_callback hb34 settings")],
         ]
 
     buttons.append(
