@@ -269,11 +269,11 @@ async def del_back_playlist(client, CallbackQuery, _):
         current = await is_autoplay(chat_id)
         if current:
             await autoplay_off(chat_id)
-            status_text = "❌ <b>Autoplay OFF</b> kar diya!"
+            status_text = "🚫 <b>ᴀᴜᴛᴏᴘʟᴀʏ OFF</b> ᴅɪꜱᴀʙʟᴇᴅ !"
             ap_on = False
         else:
             await autoplay_on(chat_id)
-            status_text = "✅ <b>Autoplay ON</b> kar diya!"
+            status_text = "✅ <b>ᴀᴜᴛᴏᴘʟᴀʏ ON</b> ᴇɴᴀʙʟᴇᴅ !"
             ap_on = True
         await CallbackQuery.answer()
         # Button update karo
