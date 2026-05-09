@@ -39,7 +39,7 @@ async def autoplay_command(client, message: Message, _):
     if action == "on":
         if await is_autoplay(chat_id):
             return await message.reply_text(
-                "✅ ᴀᴜᴛᴏᴘʟᴀʏ ɪꜱ ᴀʟʀᴇᴀᴅʏ <b>ON</b> ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴘ !""
+                "✅ ᴀᴜᴛᴏᴘʟᴀʏ ɪꜱ ᴀʟʀᴇᴀᴅʏ <b>ON</b> ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴘ !"
             )
         await autoplay_on(chat_id)
         await message.reply_text(
