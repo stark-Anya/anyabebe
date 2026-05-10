@@ -1,0 +1,370 @@
+# -----------------------------------------------
+# SanyaMusic — Clone Customize Plugin
+# Commands: /addstart, /addsupport, /addupdate, /ownerlink
+# Only clone owner can use these
+# -----------------------------------------------
+from pyrogram import Client, filters, enums
+from pyrogram.types import (
+    Message,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton,
+    CallbackQuery,
+)
+
+from SANYAMUSIC import app
+from SANYAMUSIC.utils.clone_db import (
+    get_clone_links,
+    get_clone_owner_link,
+    get_clone_start,
+    is_clone_owner,
+    set_clone_owner_link,
+    set_clone_start_photo,
+    set_clone_start_text,
+    set_clone_support,
+    set_clone_update,
+)
+import config
+
+
+def _get_bot_id(client) -> int:
+    try:
+        return client.me.id
+    except Exception:
+        return app.me.id
+
+
+async def _is_authorized(client, message: Message) -> bool:
+    """Main owner or clone owner — both allowed."""
+    user_id = message.from_user.id
+    if user_id == config.OWNER_ID:
+        return True
+    bot_id = _get_bot_id(client)
+    return await is_clone_owner(bot_id, user_id)
+
+
+async def _is_authorized_cb(client, callback: CallbackQuery) -> bool:
+    user_id = callback.from_user.id
+    if user_id == config.OWNER_ID:
+        return True
+    bot_id = _get_bot_id(client)
+    return await is_clone_owner(bot_id, user_id)
+
+
+# ── /addstart ───────────────────────────────────────────────────────
+@app.on_message(filters.command("addstart") & filters.private)
+async def add_start_message(client, message: Message):
+    if not await _is_authorized(client, message):
+        return await message.reply_text(
+            "❌ This command is only for the <b>clone owner</b>.",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    bot_id = _get_bot_id(client)
+    reply = message.reply_to_message
+
+    if reply:
+        if reply.photo:
+            file_id = reply.photo.file_id
+            await set_clone_start_photo(bot_id, file_id)
+            if reply.caption:
+                await set_clone_start_text(bot_id, reply.caption.html)
+                return await message.reply_text(
+                    "✅ <b>Start message updated!</b>\n\n"
+                    "📸 Photo + Text both saved.\n"
+                    "<i>Send /start to preview.</i>",
+                    parse_mode=enums.ParseMode.HTML,
+                )
+            return await message.reply_text(
+                "✅ <b>Start photo updated!</b>\n\n"
+                "<i>To add text, reply to a photo with caption and use /addstart.</i>",
+                parse_mode=enums.ParseMode.HTML,
+            )
+        elif reply.text:
+            await set_clone_start_text(bot_id, reply.text.html)
+            return await message.reply_text(
+                "✅ <b>Start message updated!</b>\n\n"
+                f"📝 <b>Preview:</b>\n\n{reply.text.html}",
+                parse_mode=enums.ParseMode.HTML,
+            )
+
+    elif len(message.command) > 1:
+        text = message.text.split(None, 1)[1]
+        await set_clone_start_text(bot_id, text)
+        return await message.reply_text(
+            "✅ <b>Start message updated!</b>\n\n"
+            f"📝 <b>Preview:</b>\n\n{text}",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    return await message.reply_text(
+        "❓ <b>How to use /addstart:</b>\n\n"
+        "1. Reply to any text message → <code>/addstart</code>\n"
+        "2. Reply to a photo (with or without caption) → <code>/addstart</code>\n"
+        "3. <code>/addstart Your custom message here</code>\n\n"
+        "<b>HTML formatting supported:</b>\n"
+        "<code>&lt;b&gt;Bold&lt;/b&gt;</code>\n"
+        "<code>&lt;i&gt;Italic&lt;/i&gt;</code>\n"
+        "<code>&lt;a href='link'&gt;Text&lt;/a&gt;</code>\n\n"
+        "✅ Newlines and spacing are preserved.",
+        parse_mode=enums.ParseMode.HTML,
+    )
+
+
+# ── /addsupport ─────────────────────────────────────────────────────
+@app.on_message(filters.command("addsupport") & filters.private)
+async def add_support_link(client, message: Message):
+    if not await _is_authorized(client, message):
+        return await message.reply_text(
+            "❌ This command is only for the <b>clone owner</b>.",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    if len(message.command) < 2:
+        return await message.reply_text(
+            "❓ <b>Usage:</b> <code>/addsupport https://t.me/yourgroup</code>",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    link = message.command[1]
+    if not link.startswith("http"):
+        return await message.reply_text(
+            "❌ Invalid link. Must start with <code>https://</code>",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    bot_id = _get_bot_id(client)
+    await set_clone_support(bot_id, link)
+    await message.reply_text(
+        f"✅ <b>Support link updated!</b>\n\n"
+        f"🔗 <code>{link}</code>\n\n"
+        f"A <b>🆘 Support</b> button will now appear on the start message.",
+        parse_mode=enums.ParseMode.HTML,
+    )
+
+
+# ── /addupdate ──────────────────────────────────────────────────────
+@app.on_message(filters.command("addupdate") & filters.private)
+async def add_update_link(client, message: Message):
+    if not await _is_authorized(client, message):
+        return await message.reply_text(
+            "❌ This command is only for the <b>clone owner</b>.",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    if len(message.command) < 2:
+        return await message.reply_text(
+            "❓ <b>Usage:</b> <code>/addupdate https://t.me/yourchannel</code>",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    link = message.command[1]
+    if not link.startswith("http"):
+        return await message.reply_text(
+            "❌ Invalid link. Must start with <code>https://</code>",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    bot_id = _get_bot_id(client)
+    await set_clone_update(bot_id, link)
+    await message.reply_text(
+        f"✅ <b>Update channel link updated!</b>\n\n"
+        f"🔗 <code>{link}</code>\n\n"
+        f"A <b>📢 Updates</b> button will now appear on the start message.",
+        parse_mode=enums.ParseMode.HTML,
+    )
+
+
+# ── /ownerlink ──────────────────────────────────────────────────────
+@app.on_message(filters.command("ownerlink") & filters.private)
+async def set_owner_link(client, message: Message):
+    if not await _is_authorized(client, message):
+        return await message.reply_text(
+            "❌ This command is only for the <b>clone owner</b>.",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    if len(message.command) < 2:
+        return await message.reply_text(
+            "❓ <b>Usage:</b> <code>/ownerlink https://t.me/yourprofile</code>\n\n"
+            "This sets the owner button link shown on the start message.",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    link = message.command[1]
+    if not link.startswith("http"):
+        return await message.reply_text(
+            "❌ Invalid link. Must start with <code>https://</code>",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    bot_id = _get_bot_id(client)
+    await set_clone_owner_link(bot_id, link)
+    await message.reply_text(
+        f"✅ <b>Owner link updated!</b>\n\n"
+        f"🔗 <code>{link}</code>\n\n"
+        f"The owner button on the start message will now point to your profile.",
+        parse_mode=enums.ParseMode.HTML,
+    )
+
+
+# ── /mysettings ─────────────────────────────────────────────────────
+@app.on_message(filters.command("mysettings") & filters.private)
+async def my_settings(client, message: Message):
+    if not await _is_authorized(client, message):
+        return await message.reply_text(
+            "❌ This command is only for the <b>clone owner</b>.",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    bot_id = _get_bot_id(client)
+    start_data = await get_clone_start(bot_id)
+    links = await get_clone_links(bot_id)
+    owner_link = await get_clone_owner_link(bot_id)
+
+    photo_status = "✅ Custom set" if start_data.get("photo") else "❌ Default (main bot photo)"
+    text_status = "✅ Custom set" if start_data.get("text") else "❌ Default (main bot text)"
+    support_status = f"✅ {links['support']}" if links.get("support") else "❌ Default"
+    update_status = f"✅ {links['update']}" if links.get("update") else "❌ Default"
+    owner_status = f"✅ {owner_link}" if owner_link else "❌ Default"
+
+    await message.reply_text(
+        "⚙️ <b>Your Bot Settings</b>\n\n"
+        f"📸 <b>Start Photo:</b> {photo_status}\n"
+        f"📝 <b>Start Text:</b> {text_status}\n"
+        f"🆘 <b>Support Link:</b> {support_status}\n"
+        f"📢 <b>Update Link:</b> {update_status}\n"
+        f"👤 <b>Owner Link:</b> {owner_status}\n\n"
+        "<b>Available Commands:</b>\n"
+        "• <code>/addstart</code> — Change start message\n"
+        "• <code>/addsupport link</code> — Set support button\n"
+        "• <code>/addupdate link</code> — Set update button\n"
+        "• <code>/ownerlink link</code> — Set owner button link\n"
+        "• <code>/mysettings</code> — Show this panel\n\n"
+        "<i>If not customized, the default main bot settings are used.</i>",
+        parse_mode=enums.ParseMode.HTML,
+    )
+
+
+# ── Callback: Customise panel ────────────────────────────────────────
+@app.on_callback_query(filters.regex("clone_customize_panel"))
+async def clone_customize_callback(client, callback: CallbackQuery):
+    if not await _is_authorized_cb(client, callback):
+        return await callback.answer("❌ Only for clone owner!", show_alert=True)
+
+    await callback.answer()
+    await callback.edit_message_text(
+        "⚙️ <b>Customise Your Bot</b>\n\n"
+        "Use these commands in my PM to personalize your bot:\n\n"
+        "📝 <b>/addstart</b>\n"
+        "Change the start message. Reply to any text or photo,\n"
+        "or type <code>/addstart Your message</code>.\n"
+        "HTML formatting and newlines are fully supported.\n\n"
+        "🆘 <b>/addsupport {link}</b>\n"
+        "Set your support group or channel link.\n"
+        "Appears as a button on the start message.\n\n"
+        "📢 <b>/addupdate {link}</b>\n"
+        "Set your update channel link.\n"
+        "Appears as a button on the start message.\n\n"
+        "👤 <b>/ownerlink {link}</b>\n"
+        "Set your profile link shown on the owner button.\n\n"
+        "⚙️ <b>/mysettings</b>\n"
+        "View your current customization status.\n\n"
+        "<i>Until you customize, the default main bot settings remain active.</i>",
+        reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("🔙 Back", callback_data="clone_back_start")]
+        ]),
+        parse_mode=enums.ParseMode.HTML,
+    )
+
+
+# ── Callback: Back to clone start panel ────────────────────────────
+@app.on_callback_query(filters.regex("clone_back_start"))
+async def clone_back_to_start(client, callback: CallbackQuery):
+    """Back button — clone ka apna start panel show karo, main bot ka nahi."""
+    await callback.answer()
+
+    is_clone = getattr(client, "is_clone", False)
+    bot_id = getattr(client, "bot_id", None)
+    user_id = callback.from_user.id
+
+    if not (is_clone and bot_id):
+        return await callback.edit_message_text(
+            "❌ This is not a clone bot.",
+            parse_mode=enums.ParseMode.HTML,
+        )
+
+    from SANYAMUSIC.utils.clone_db import (
+        get_clone_start, get_clone_links, get_clone_owner_link
+    )
+
+    start_data = await get_clone_start(bot_id)
+    links = await get_clone_links(bot_id)
+    owner_link = await get_clone_owner_link(bot_id)
+
+    buttons = []
+
+    try:
+        me = await client.get_me()
+        username = me.username
+        bot_name = me.first_name
+    except:
+        username = None
+        bot_name = "Music Bot"
+
+    if username:
+        buttons.append([
+            InlineKeyboardButton(
+                "➕ Add to Group",
+                url=f"https://t.me/{username}?startgroup=true"
+            )
+        ])
+
+    support_link = links.get("support") or config.SUPPORT_CHAT
+    update_link = links.get("update") or config.SUPPORT_CHANNEL
+    buttons.append([
+        InlineKeyboardButton("🆘 Support", url=support_link),
+        InlineKeyboardButton("📢 Updates", url=update_link),
+    ])
+
+    # Owner button
+    final_owner_link = owner_link or f"https://t.me/{config.OWNER_ID}"
+    buttons.append([
+        InlineKeyboardButton("👤 Owner", url=final_owner_link)
+    ])
+
+    # Help button
+    buttons.append([
+        InlineKeyboardButton("📖 Help & Commands", callback_data="open_help_panel")
+    ])
+
+    # Customize button — only for clone owner or main owner
+    owner_id = getattr(client, "owner_id", None)
+    if user_id == owner_id or user_id == config.OWNER_ID:
+        buttons.append([
+            InlineKeyboardButton("⚙️ Customise My Bot", callback_data="clone_customize_panel")
+        ])
+
+    caption = start_data.get("text") or f"👋 Welcome to <b>{bot_name}</b>!\n\nI am a music bot. Add me to your group and play songs!"
+
+    try:
+        if start_data.get("photo"):
+            await callback.message.delete()
+            await client.send_photo(
+                callback.message.chat.id,
+                photo=start_data["photo"],
+                caption=caption,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=enums.ParseMode.HTML,
+            )
+        else:
+            await callback.edit_message_text(
+                caption,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=enums.ParseMode.HTML,
+            )
+    except Exception:
+        await callback.edit_message_text(
+            caption,
+            reply_markup=InlineKeyboardMarkup(buttons),
+            parse_mode=enums.ParseMode.HTML,
+        )
