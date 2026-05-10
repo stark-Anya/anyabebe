@@ -36,6 +36,23 @@ async def is_clone_owner(bot_id: int, user_id: int) -> bool:
     return owner == user_id
 
 
+async def set_clone_owner_link(bot_id: int, link: str):
+    """Clone owner ka custom link set karo (start button mein dikhega)."""
+    await clone_customize_db.update_one(
+        {"bot_id": bot_id},
+        {"$set": {"owner_link": link}},
+        upsert=True,
+    )
+
+
+async def get_clone_owner_link(bot_id: int) -> str | None:
+    """Clone owner ka custom link lo."""
+    doc = await clone_customize_db.find_one({"bot_id": bot_id})
+    if doc:
+        return doc.get("owner_link")
+    return None
+
+
 # ── Start Message Customize ──────────────────────────────────────────
 
 async def set_clone_start_text(bot_id: int, text: str):
