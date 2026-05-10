@@ -201,7 +201,7 @@ async def start_pm(client, message: Message, _):
             ])
 
             # Owner button — clone owner ka link ya default
-            final_owner_link = owner_link or f"https://t.me/{config.OWNER_ID}"
+            final_owner_link = owner_link or f"https://t.me/cutzj"
             buttons.append([
                 InlineKeyboardButton("⌯ 𝐌ʏ 𝐌ᴧsᴛᴇʀ ⌯", url=final_owner_link)
             ])
