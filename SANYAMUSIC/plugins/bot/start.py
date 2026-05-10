@@ -188,7 +188,7 @@ async def start_pm(client, message: Message, _):
             if username:
                 buttons.append([
                     InlineKeyboardButton(
-                        "➕ Add to Group",
+                        "✙ 𝐀ᴅᴅ 𝐌є 𝐈η 𝐘συʀ 𝐆ʀσυᴘ ✙",
                         url=f"https://t.me/{username}?startgroup=true"
                     )
                 ])
@@ -196,26 +196,26 @@ async def start_pm(client, message: Message, _):
             support_link = links.get("support") or config.SUPPORT_CHAT
             update_link = links.get("update") or config.SUPPORT_CHANNEL
             buttons.append([
-                InlineKeyboardButton("🆘 Support", url=support_link),
-                InlineKeyboardButton("📢 Updates", url=update_link),
+                InlineKeyboardButton("⌯ 𝐒ᴜᴘᴘσʀᴛ ⌯", url=support_link),
+                InlineKeyboardButton("⌯ 𝐔ᴘᴅᴀᴛᴇ ⌯", url=update_link),
             ])
 
             # Owner button — clone owner ka link ya default
             final_owner_link = owner_link or f"https://t.me/{config.OWNER_ID}"
             buttons.append([
-                InlineKeyboardButton("👤 Owner", url=final_owner_link)
+                InlineKeyboardButton("⌯ 𝐌ʏ 𝐌ᴧsᴛᴇʀ ⌯", url=final_owner_link)
             ])
 
             # Help & Commands button
             buttons.append([
-                InlineKeyboardButton("📖 Help & Commands", callback_data="open_help_panel")
+                InlineKeyboardButton("⌯ 𝐇єʟᴘ 𝐀ηᴅ 𝐂ᴏᴍᴍᴧηᴅ𝐬 ⌯", callback_data="open_help_panel")
             ])
 
             # Customize button — sirf clone owner ya main owner ko
             owner_id = getattr(client, "owner_id", None)
             if user_id == owner_id or user_id == config.OWNER_ID:
                 buttons.append([
-                    InlineKeyboardButton("⚙️ Customise My Bot", callback_data="clone_customize_panel")
+                    InlineKeyboardButton("⚙️ 𝐂ᴜsᴛᴏᴍɪᴢᴇ 𝐘ᴏᴜ 𝐁ᴏᴛ", callback_data="clone_customize_panel")
                 ])
 
             keyboard = InlineKeyboardMarkup(buttons)
