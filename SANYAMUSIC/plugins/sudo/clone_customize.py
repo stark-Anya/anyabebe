@@ -69,14 +69,14 @@ async def add_start_message(client, message: Message):
             if reply.caption:
                 await set_clone_start_text(bot_id, reply.caption.html)
                 return await message.reply_text(
-                    "✅ <b>Start message updated!</b>\n\n"
-                    "📸 Photo + Text both saved.\n"
-                    "<i>Send /start to preview.</i>",
+                    "✅ <b>ꜱᴛᴀʀᴛ ᴍᴇꜱꜱᴀɢᴇ ᴜᴘᴅᴀᴛᴇᴅ !</b>\n\n"
+                    "📸 ᴘʜᴏᴛᴏ + ᴛᴇxᴛ ʙᴏᴛʜ ꜱᴀᴠᴇᴅ.\n"
+                    "<i>ꜱᴇɴᴅ /start ᴛᴏ ᴘʀᴇᴠɪᴇᴡ.</i>",
                     parse_mode=enums.ParseMode.HTML,
                 )
             return await message.reply_text(
-                "✅ <b>Start photo updated!</b>\n\n"
-                "<i>To add text, reply to a photo with caption and use /addstart.</i>",
+                "✅ <b>ꜱᴛᴀʀᴛ ᴘʜᴏᴛᴏ ᴜᴘᴅᴀᴛᴇᴅ !</b>\n\n"
+                "<i>ᴛᴏ ᴀᴅᴅ ᴛᴇxᴛ, ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴘʜᴏᴛᴏ ᴡɪᴛʜ ᴄᴀᴘᴛɪᴏɴ ᴀɴᴅ ᴜꜱᴇ /addstart.</i>",
                 parse_mode=enums.ParseMode.HTML,
             )
         elif reply.text:
@@ -97,18 +97,17 @@ async def add_start_message(client, message: Message):
         )
 
     return await message.reply_text(
-        "❓ <b>How to use /addstart:</b>\n\n"
-        "1. Reply to any text message → <code>/addstart</code>\n"
-        "2. Reply to a photo (with or without caption) → <code>/addstart</code>\n"
+        "❓ <b>ʜᴏᴡ ᴛᴏ ᴜꜱᴇ /addstart :</b>\n\n"
+        "1. ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴛᴇxᴛ ᴍᴇꜱꜱᴀɢᴇ ➠ <code>/addstart</code>\n"
+        "2. ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴘʜᴏᴛᴏ (ᴡɪᴛʜ ᴏʀ ᴡɪᴛʜᴏᴜᴛ ᴄᴀᴘᴛɪᴏɴ) ➠ <code>/addstart</code>\n"
         "3. <code>/addstart Your custom message here</code>\n\n"
-        "<b>HTML formatting supported:</b>\n"
+        "<b>ʜᴛᴍʟ ꜰᴏʀᴍᴀᴛᴛɪɴɢ ꜱᴜᴘᴘᴏʀᴛᴇᴅ :</b>\n"
         "<code>&lt;b&gt;Bold&lt;/b&gt;</code>\n"
         "<code>&lt;i&gt;Italic&lt;/i&gt;</code>\n"
         "<code>&lt;a href='link'&gt;Text&lt;/a&gt;</code>\n\n"
-        "✅ Newlines and spacing are preserved.",
+        "✅ ɴᴇᴡ ʟɪɴᴇꜱ ᴀɴᴅ ꜱᴘᴀᴄɪɴɢ ᴀʀᴇ ᴘʀᴇꜱᴇʀᴠᴇᴅ.",
         parse_mode=enums.ParseMode.HTML,
     )
-
 
 # ── /addsupport ─────────────────────────────────────────────────────
 @app.on_message(filters.command("addsupport") & filters.private)
@@ -253,25 +252,25 @@ async def clone_customize_callback(client, callback: CallbackQuery):
 
     await callback.answer()
     await callback.edit_message_text(
-        "⚙️ <b>Customise Your Bot</b>\n\n"
-        "Use these commands in my PM to personalize your bot:\n\n"
+        "⚙️ <b>ᴄᴜꜱᴛᴏᴍɪꜱᴇ ʏᴏᴜʀ ʙᴏᴛ</b>\n\n"
+        "ᴜꜱᴇ ᴛʜᴇꜱᴇ ᴄᴏᴍᴍᴀɴᴅꜱ ɪɴ ᴍʏ PM ᴛᴏ ᴘᴇʀꜱᴏɴᴀʟɪᴢᴇ ʏᴏᴜʀ ʙᴏᴛ :\n\n"
         "📝 <b>/addstart</b>\n"
-        "Change the start message. Reply to any text or photo,\n"
-        "or type <code>/addstart Your message</code>.\n"
-        "HTML formatting and newlines are fully supported.\n\n"
+        "ᴄʜᴀɴɢᴇ ᴛʜᴇ ꜱᴛᴀʀᴛ ᴍᴇꜱꜱᴀɢᴇ. ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴛᴇxᴛ ᴏʀ ᴘʜᴏᴛᴏ,\n"
+        "ᴏʀ ᴜꜱᴇ <code>/addstart Your message</code>.\n"
+        "ʜᴛᴍʟ ꜰᴏʀᴍᴀᴛᴛɪɴɢ ᴀɴᴅ ɴᴇᴡ ʟɪɴᴇꜱ ᴀʀᴇ ꜱᴜᴘᴘᴏʀᴛᴇᴅ.\n\n"
         "🆘 <b>/addsupport {link}</b>\n"
-        "Set your support group or channel link.\n"
-        "Appears as a button on the start message.\n\n"
+        "ꜱᴇᴛ ʏᴏᴜʀ ꜱᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ ᴏʀ ᴄʜᴀɴɴᴇʟ ʟɪɴᴋ.\n"
+        "ɪᴛ ᴡɪʟʟ ᴀᴘᴘᴇᴀʀ ᴀꜱ ᴀ ʙᴜᴛᴛᴏɴ ᴏɴ ᴛʜᴇ ꜱᴛᴀʀᴛ ᴍᴇꜱꜱᴀɢᴇ.\n\n"
         "📢 <b>/addupdate {link}</b>\n"
-        "Set your update channel link.\n"
-        "Appears as a button on the start message.\n\n"
+        "ꜱᴇᴛ ʏᴏᴜʀ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ʟɪɴᴋ.\n"
+        "ɪᴛ ᴡɪʟʟ ᴀᴘᴘᴇᴀʀ ᴀꜱ ᴀ ʙᴜᴛᴛᴏɴ ᴏɴ ᴛʜᴇ ꜱᴛᴀʀᴛ ᴍᴇꜱꜱᴀɢᴇ.\n\n"
         "👤 <b>/ownerlink {link}</b>\n"
-        "Set your profile link shown on the owner button.\n\n"
+        "ꜱᴇᴛ ʏᴏᴜʀ ᴘʀᴏꜰɪʟᴇ ʟɪɴᴋ ꜰᴏʀ ᴛʜᴇ ᴏᴡɴᴇʀ ʙᴜᴛᴛᴏɴ.\n\n"
         "⚙️ <b>/mysettings</b>\n"
-        "View your current customization status.\n\n"
-        "<i>Until you customize, the default main bot settings remain active.</i>",
+        "ᴠɪᴇᴡ ʏᴏᴜʀ ᴄᴜʀʀᴇɴᴛ ᴄᴜꜱᴛᴏᴍɪᴢᴀᴛɪᴏɴ ꜱᴛᴀᴛᴜꜱ.\n\n"
+        "<i>ᴜɴᴛɪʟ ʏᴏᴜ ᴄᴜꜱᴛᴏᴍɪᴢᴇ ɪᴛ, ᴅᴇꜰᴀᴜʟᴛ ʙᴏᴛ ꜱᴇᴛᴛɪɴɢꜱ ᴡɪʟʟ ʙᴇ ᴜꜱᴇᴅ.</i>",
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("🔙 Back", callback_data="clone_back_start")]
+            [InlineKeyboardButton("🔙 ʙᴀᴄᴋ", callback_data="clone_back_start")]
         ]),
         parse_mode=enums.ParseMode.HTML,
     )
@@ -322,19 +321,19 @@ async def clone_back_to_start(client, callback: CallbackQuery):
     support_link = links.get("support") or config.SUPPORT_CHAT
     update_link = links.get("update") or config.SUPPORT_CHANNEL
     buttons.append([
-        InlineKeyboardButton("🆘 Support", url=support_link),
-        InlineKeyboardButton("📢 Updates", url=update_link),
+        InlineKeyboardButton("⌯ 𝐒ᴜᴘᴘσʀᴛ ⌯", url=support_link),
+        InlineKeyboardButton("⌯ 𝐔ᴘᴅᴀᴛᴇ ⌯", url=update_link),
     ])
 
     # Owner button
     final_owner_link = owner_link or f"https://t.me/{config.OWNER_ID}"
     buttons.append([
-        InlineKeyboardButton("👤 Owner", url=final_owner_link)
+        InlineKeyboardButton("⌯ 𝐌ʏ 𝐌ᴧsᴛᴇʀ ⌯", url=final_owner_link)
     ])
 
     # Help button
     buttons.append([
-        InlineKeyboardButton("📖 Help & Commands", callback_data="open_help_panel")
+        InlineKeyboardButton("⌯ 𝐇єʟᴘ 𝐀ηᴅ 𝐂ᴏᴍᴍᴧηᴅ𝐬 ⌯", callback_data="open_help_panel")
     ])
 
     # Customize button — only for clone owner or main owner
