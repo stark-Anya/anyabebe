@@ -33,7 +33,7 @@ _FALLBACKS = [
 
 # ── Groq AI Analysis ─────────────────────────────────────────────────
 
-_SYSTEM_PROMPT = """You are a music analysis AI. Given a song title and artist, analyze the song and return search queries to find similar songs on YouTube.
+_SYSTEM_PROMPT = """You are a music analysis AI. Given a song title and artist, analyze the song and return search queries to find similar songs on YouTube. But the exact same song should not be repeated again.
 
 Analyze:
 - mood (sad / romantic / happy / energetic / chill / devotional / motivational)
