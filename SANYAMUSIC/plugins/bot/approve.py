@@ -59,35 +59,59 @@ async def get_userinfo_img(
     bg_path: str,
     font_path: str,
     user_id: Union[int, str],
+    name: str,
+    username: str,
     profile_path: Optional[str] = None,
 ):
-    bg = Image.open(bg_path)
+    bg = Image.open(bg_path).convert("RGBA")
 
     if profile_path:
         try:
-            img = Image.open(profile_path)
+            img = Image.open(profile_path).convert("RGBA")
+
             mask = Image.new("L", img.size, 0)
             draw = ImageDraw.Draw(mask)
             draw.pieslice([(0, 0), img.size], 0, 360, fill=255)
 
             circular_img = Image.new("RGBA", img.size, (0, 0, 0, 0))
             circular_img.paste(img, (0, 0), mask)
+
             resized = circular_img.resize((400, 400))
             bg.paste(resized, (440, 160), resized)
+
         except Exception:
             pass
 
     img_draw = ImageDraw.Draw(bg)
+
+    font = get_font(42, font_path)
+
     img_draw.text(
-        (529, 627),
-        text=str(user_id).upper(),
-        font=get_font(46, font_path),
+        (470, 610),
+        f"NAME : {name}",
+        font=font,
         fill=(255, 255, 255),
     )
+
+    img_draw.text(
+        (470, 670),
+        f"USERNAME : {username}",
+        font=font,
+        fill=(255, 255, 255),
+    )
+
+    img_draw.text(
+        (470, 730),
+        f"USER ID : {user_id}",
+        font=font,
+        fill=(255, 255, 255),
+    )
+
     path = f"./userinfo_img_{user_id}.png"
     bg.save(path)
-    return path
 
+    return path
+  
 # --------------------------------------------------------------------------------- #
 # Helper functions from the old tools/approve.py
 
@@ -142,10 +166,12 @@ async def send_welcome_message(chat, user):
             photo_path = await app.download_media(user.photo.big_file_id)
         
         welcome_photo = await get_userinfo_img(
-            bg_path=bg_path,
-            font_path=font_path,
-            user_id=user.id,
-            profile_path=photo_path,
+          bg_path=bg_path,
+          font_path=font_path,
+          user_id=user.id,
+          name=user.first_name,
+          username=f"@{user.username}" if user.username else "NOT SET",
+          profile_path=photo_path,
         )
         
         sent_message = await app.send_photo(
