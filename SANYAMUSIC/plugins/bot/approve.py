@@ -195,7 +195,7 @@ async def send_welcome_message(chat, user):
               mention=user.mention,
               title=chat.title,
               name=user.first_name,
-              username=f"@{user.username}" if user.username else "No Username",
+              username=f"@{user.username}" if user.username else "Not Set",
               userid=user.id,
             ),
             parse_mode=enums.ParseMode.HTML
