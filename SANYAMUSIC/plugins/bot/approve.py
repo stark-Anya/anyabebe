@@ -197,8 +197,8 @@ async def join_request_handler(_, req: ChatJoinRequest):
             await app.approve_chat_join_request(chat.id, user.id)
             approve_msg_doc = await APPROVEMSG_DB.find_one({"chat_id": chat.id}) or {"enabled": True}
             approve_msg_enabled = approve_msg_doc.get("enabled", True)
-            if approve_msg_enabled:
-                await send_welcome_message(chat, user)
+            #if approve_msg_enabled:
+              #  await send_welcome_message(chat, user)
         except Exception as e:
             print(f"[Auto-Approve Error]: {e}")
         return
@@ -270,10 +270,10 @@ async def approve_btn(_, cq: CallbackQuery):
         await cq.message.delete()
         
         approve_msg_doc = await APPROVEMSG_DB.find_one({"chat_id": chat_id}) or {"enabled": True}
-        if approve_msg_doc.get("enabled", True):
-            user = await app.get_users(user_id)
-            chat = await app.get_chat(chat_id)
-            await send_welcome_message(chat, user)
+       # if approve_msg_doc.get("enabled", True):
+        #    user = await app.get_users(user_id)
+       #     chat = await app.get_chat(chat_id)
+       #     await send_welcome_message(chat, user)
         
         await cq.answer("Approved Successfully!")
     except Exception as e:
@@ -380,3 +380,26 @@ async def approve_all_cmd(_, m: Message):
         f"{small('Failed to Approve')}: <b>{failed}</b>"
         f"</blockquote>"
   )
+
+# --------------------------------------------------------------------------------- #
+# Universal Welcome Handler
+
+@app.on_message(filters.new_chat_members & filters.group)
+async def universal_welcome_handler(_, message: Message):
+
+    approve_msg_doc = await APPROVEMSG_DB.find_one(
+        {"chat_id": message.chat.id}
+    ) or {"enabled": True}
+
+    if not approve_msg_doc.get("enabled", True):
+        return
+
+    for user in message.new_chat_members:
+        try:
+            if user.is_bot:
+                continue
+
+            await send_welcome_message(message.chat, user)
+
+        except Exception as e:
+            print(f"[Universal Welcome Error]: {e}")
