@@ -49,29 +49,32 @@ async def whois_handler(_, message: Message):
         lang = getattr(user, "language_code", "ɴ/ᴀ")
 
         text = (
-            f"👤 <b>ᴜsᴇʀ ɪɴғᴏ</b>\n"
-            f"━━━━━━━━━━━━━━━\n"
-            f"🔗 <b>ᴜsᴇʀ ɪᴅ:</b> <code>{user.id}</code>\n"
-            f"🔗 <b>ɴᴀᴍᴇ:</b> {name}\n"
-            f"🔗 <b>ᴜsᴇʀɴᴀᴍᴇ:</b> {username}\n"
-            f"🔗 <b>ʟᴀsᴛ sᴇᴇɴ:</b> {last_seen}\n"
-            f"🔗 <b>ᴅᴀᴛᴀᴄᴇɴᴛᴇʀ ɪᴅ:</b> {dc_id}\n"
-            f"🔗 <b>ʟᴀɴɢᴜᴀɢᴇ:</b> {lang}\n"
-            f"━━━━━━━━━━━━━━━\n"
-            f"🔗 <b>ᴠᴇʀɪғɪᴇᴅ:</b> {'ʏᴇs ✅' if user.is_verified else 'ɴᴏ 🥀'}\n"
-            f"🔗 <b>ᴘʀᴇᴍɪᴜᴍ:</b> {'ʏᴇs ☑️' if user.is_premium else 'ɴᴏ 🥀'}\n"
-            f"🔗 <b>ʙᴏᴛ:</b> {'ʏᴇs 🤖' if user.is_bot else 'ɴᴏ 👤'}\n"
-            f"🔗 <b>sᴄᴀᴍ ᴀᴄᴄᴏᴜɴᴛ:</b> {'ʏᴇs ⚠️' if getattr(user, 'is_scam', False) else 'ɴᴏ ☑️'}\n"
-            f"🔗 <b>ғᴀᴋᴇ ᴀᴄᴄᴏᴜɴᴛ:</b> {'ʏᴇs 🎭' if getattr(user, 'is_fake', False) else 'ɴᴏ ☑️'}\n"
-            f"🔗 <b>ᴘʀᴏғɪʟᴇ ᴘɪᴄᴛᴜʀᴇ:</b> {'ʏᴇs 🌠' if user.photo else 'ɴᴏ 🥀'}\n"
-            f"━━━━━━━━━━━━━━━\n"
-            f"🔗 <b>ʙɪᴏ:</b> <code>{bio}</code>"
+            f"<blockquote>👤 <b>ᴜsᴇʀ ɪɴғᴏ</b></blockquote>\n"
+            f"<blockquote>"
+            f"❖ <b>ᴜsᴇʀ ɪᴅ:</b> <code>{user.id}</code>\n"
+            f"❖ <b>ɴᴀᴍᴇ:</b> {name}\n"
+            f"❖ <b>ᴜsᴇʀɴᴀᴍᴇ:</b> {username}\n"
+            f"❖ <b>ʟᴀsᴛ sᴇᴇɴ:</b> {last_seen}\n"
+            f"❖ <b>ᴅᴀᴛᴀᴄᴇɴᴛᴇʀ ɪᴅ:</b> {dc_id}\n"
+            f"❖ <b>ʟᴀɴɢᴜᴀɢᴇ:</b> {lang}\n"
+            f"</blockquote>\n"
+            f"<blockquote>"
+            f"✬ <b>ᴠᴇʀɪғɪᴇᴅ:</b> {'ʏᴇs ✅' if user.is_verified else 'ɴᴏ 🥀'}\n"
+            f"✬ <b>ᴘʀᴇᴍɪᴜᴍ:</b> {'ʏᴇs ☑️' if user.is_premium else 'ɴᴏ 🥀'}\n"
+            f"✬ <b>ʙᴏᴛ:</b> {'ʏᴇs 🤖' if user.is_bot else 'ɴᴏ 👤'}\n"
+            f"✬ <b>sᴄᴀᴍ ᴀᴄᴄᴏᴜɴᴛ:</b> {'ʏᴇs ⚠️' if getattr(user, 'is_scam', False) else 'ɴᴏ ☑️'}\n"
+            f"✬ <b>ғᴀᴋᴇ ᴀᴄᴄᴏᴜɴᴛ:</b> {'ʏᴇs 🎭' if getattr(user, 'is_fake', False) else 'ɴᴏ ☑️'}\n"
+            f"✬ <b>ᴘʀᴏғɪʟᴇ ᴘɪᴄᴛᴜʀᴇ:</b> {'ʏᴇs 🌠' if user.photo else 'ɴᴏ 🥀'}\n"
+            f"</blockquote>\n"
+            f"<blockquote>"
+            f"❖ <b>ʙɪᴏ:</b> <code>{bio}</code>"
+            f"</blockquote>\n"
+            f"<blockquote> </blockquote>"
         )
 
-        profile_url = f"https://t.me/{user.username}" if user.username else f"tg://user?id={user.id}"
+        profile_url = f"https://t.me/{user.username}" if user.username else f"tg://openmessage?user_id={user.id}"
         buttons = InlineKeyboardMarkup([[
-            InlineKeyboardButton("👤 ᴠɪᴇᴡ ᴘʀᴏғɪʟᴇ", url=profile_url),
-            InlineKeyboardButton("📞 ᴘʜᴏɴᴇ", url="tg://settings")
+            InlineKeyboardButton("👤 ᴠɪᴇᴡ ᴘʀᴏғɪʟᴇ", url=profile_url)
         ]])
 
         await app.edit_message_text(
