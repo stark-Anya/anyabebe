@@ -35,10 +35,10 @@ TEXT = os.environ.get(
     "✬ 𝐖ᴇʟᴄσᴍᴇ {mention} ɪɴ σᴜʀ ɢʀσᴜᴘ 💐"
     "</b></blockquote>\n"
     "<blockquote><b>"
-    "✬ 𝐆ʀσᴜᴘ » {title}\n"
     "✬ 𝐍ᴧᴍᴇ » {name}\n"
     "✬ 𝐔sᴇʀ ɪᴅ » <code>{userid}</code>\n"
     "✬ 𝐔sᴇʀɴɑᴍᴇ » {username}"
+    "✬ 𝐆ʀσᴜᴘ » {title}\n"
     "</b></blockquote>\n"
     "<blockquote><b><u>"
     "❖ 𝐇σᴘᴇ ʏσᴜ ғɪɴᴅ ɢσσᴅ ᴠɪʙᴇs, "
@@ -199,6 +199,7 @@ async def send_welcome_message(chat, user):
               userid=user.id,
             ),
             parse_mode=enums.ParseMode.HTML
+            has_spoiler=True
         )
     except Exception as e:
         print(f"[Approve Welcome Error]: {e}")
