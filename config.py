@@ -16,10 +16,10 @@ GROQ_MODEL = getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ ! .").split())
 
 # Bot and owner info
-OWNER_USERNAME = getenv("OWNER_USERNAME", "urstarkz")
-BOT_USERNAME = getenv("BOT_USERNAME", "")
-BOT_NAME = getenv("BOT_NAME", "Sanya")
-ASSUSERNAME = getenv("ASSUSERNAME", "SANYAassistant")
+OWNER_USERNAME = getenv("OWNER_USERNAME", "ur_starkz")
+BOT_USERNAME = getenv("BOT_USERNAME", "@AnyaBeats_bot")
+BOT_NAME = getenv("BOT_NAME", "Anya Beats")
+ASSUSERNAME = getenv("ASSUSERNAME", "Aassistant")
 MUST_JOIN = getenv("MUST_JOIN", "")
 BASE_URL = "https://api.waifu.pics"
 
