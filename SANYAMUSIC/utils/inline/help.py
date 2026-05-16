@@ -169,7 +169,7 @@ def help_back_markup(_, category):
                 InlineKeyboardButton(
                     text=_["BACK_BUTTON"],
                     callback_data=f"help_category {category}",
-                    style=ButtonStyle.SUCCESS,
+                    style=ButtonStyle.PRIMARY,
                 ),
                 InlineKeyboardButton(
                     text=_["CLOSE_BUTTON"],
