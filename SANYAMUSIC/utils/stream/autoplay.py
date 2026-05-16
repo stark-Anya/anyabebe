@@ -256,9 +256,9 @@ async def _autoplay_next(client, chat_id: int, last_played: dict):
         try:
             msg = await app.send_message(
                 original_chat_id,
-                f"🔄 <b>Autoplay</b>\n\n"
-                f"🎵 <b>{next_song['title']}</b>"
-                f"{mood_line}",
+                f"<blockquote><b>❖ 𝐀ɴʏᴀ’s ʟɪᴛᴛʟᴇ ɢɪғᴛ ғᴏʀ ʏᴏᴜ 🎧</b></blockquote>\n"
+                f"<blockquote><b>✬ 𝐒ᴏɴɢ : {next_song['title']}</b></blockquote>\n"
+                f"<blockquote><b>✬ 𝐓ʜᴇᴍᴇs : {mood_line}</b></blockquote>",
             )
             async def _del():
                 await asyncio.sleep(20)
