@@ -11,18 +11,18 @@ from SANYAMUSIC import app
 def help_pannel(_, start: bool = False):
     buttons = [
         [
-            InlineKeyboardButton(text="⌯ ᴍᴜsɪᴄ ⌯", callback_data="help_category music", style=ButtonStyle.SUCCESS),
-            InlineKeyboardButton(text="⌯ ᴍᴧηᴧɢᴇᴍᴇηᴛ ⌯", callback_data="help_category management", style=ButtonStyle.SUCCESS),
+            InlineKeyboardButton(text="⌯ ᴍᴜsɪᴄ ⌯", callback_data="help_category music", style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text="⌯ ᴍᴧηᴧɢᴇᴍᴇηᴛ ⌯", callback_data="help_category management", style=ButtonStyle.PRIMARY),
         ],
         [
             InlineKeyboardButton(text="⌯ ᴛᴏᴏʟs ⌯", callback_data="help_category tools", style=ButtonStyle.PRIMARY),
             InlineKeyboardButton(text="⌯ ғᴜɴ ⌯", callback_data="help_category fun", style=ButtonStyle.PRIMARY),
         ],
         [
-            InlineKeyboardButton(text="⌯ ʙᴏᴛ sᴇᴛᴛɪηɢs ⌯", callback_data="help_category settings", style=ButtonStyle.DANGER),
+            InlineKeyboardButton(text="⌯ ʙᴏᴛ sᴇᴛᴛɪηɢs ⌯", callback_data="help_category settings", style=ButtonStyle.PRIMARY),
         ],
         [
-            InlineKeyboardButton(text=_["BACK_BUTTON"], callback_data="settings_back_helper", style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text=_["BACK_BUTTON"], callback_data="settings_back_helper", style=ButtonStyle.SUCCESS),
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close", style=ButtonStyle.DANGER),
         ],
     ]
@@ -35,24 +35,24 @@ def help_category_pannel(_, category):
     if category == "music":
         buttons = [
             [
-                InlineKeyboardButton(text=_["H_B_11"], callback_data="help_callback hb11 music", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text="ᴀᴅᴍɪɴ", callback_data="help_callback hb1 music", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text=_["H_B_11"], callback_data="help_callback hb11 music", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text="ᴀᴅᴍɪɴ", callback_data="help_callback hb1 music", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text=_["H_B_6"], callback_data="help_callback hb6 music", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text=_["H_B_8"], callback_data="help_callback hb8 music", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text=_["H_B_6"], callback_data="help_callback hb6 music", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text=_["H_B_8"], callback_data="help_callback hb8 music", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text=_["H_B_12"], callback_data="help_callback hb12 music", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text=_["H_B_13"], callback_data="help_callback hb13 music", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text=_["H_B_12"], callback_data="help_callback hb12 music", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text=_["H_B_13"], callback_data="help_callback hb13 music", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text=_["H_B_15"], callback_data="help_callback hb15 music", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text=_["H_B_14"], callback_data="help_callback hb14 music", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text=_["H_B_15"], callback_data="help_callback hb15 music", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text=_["H_B_14"], callback_data="help_callback hb14 music", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text="ᴠᴏɪᴄᴇ ᴄʜᴀᴛ", callback_data="help_callback hb42 music", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text="ᴄʜᴀɴɴᴇʟ ᴀᴅᴍɪɴ", callback_data="help_callback hb47 music", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text="ᴠᴏɪᴄᴇ ᴄʜᴀᴛ", callback_data="help_callback hb42 music", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text="ᴄʜᴀɴɴᴇʟ ᴀᴅᴍɪɴ", callback_data="help_callback hb47 music", style=ButtonStyle.PRIMARY),
             ],
         ]
     elif category == "management":
@@ -111,51 +111,51 @@ def help_category_pannel(_, category):
     elif category == "fun":
         buttons = [
             [
-                InlineKeyboardButton(text=_["H_B_26"], callback_data="help_callback hb26 fun", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text=_["H_B_29"], callback_data="help_callback hb29 fun", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text=_["H_B_26"], callback_data="help_callback hb26 fun", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text=_["H_B_29"], callback_data="help_callback hb29 fun", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text=_["H_B_32"], callback_data="help_callback hb32 fun", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text="ᴄᴏᴜᴘʟᴇs", callback_data="help_callback hb40 fun", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text=_["H_B_32"], callback_data="help_callback hb32 fun", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text="ᴄᴏᴜᴘʟᴇs", callback_data="help_callback hb40 fun", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text="ᴍɪsᴄ ᴇxᴛʀᴀ", callback_data="help_callback hb51 fun", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text=_["H_B_33"], callback_data="help_callback hb33 fun", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text="ᴍɪsᴄ ᴇxᴛʀᴀ", callback_data="help_callback hb51 fun", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text=_["H_B_33"], callback_data="help_callback hb33 fun", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text=_["H_B_30"], callback_data="help_callback hb30 fun", style=ButtonStyle.SUCCESS),
-                InlineKeyboardButton(text="ɢᴇɴᴇʀᴀʟ ᴛᴀɢ", callback_data="help_callback hb19 fun", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text=_["H_B_30"], callback_data="help_callback hb30 fun", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text="ɢᴇɴᴇʀᴀʟ ᴛᴀɢ", callback_data="help_callback hb19 fun", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text="sᴘᴇᴄɪᴀʟ ᴛᴀɢ", callback_data="help_callback hb50 fun", style=ButtonStyle.SUCCESS),
+                InlineKeyboardButton(text="sᴘᴇᴄɪᴀʟ ᴛᴀɢ", callback_data="help_callback hb50 fun", style=ButtonStyle.PRIMARY),
             ],
         ]
     elif category == "settings":
         buttons = [
             [
-                InlineKeyboardButton(text=_["H_B_10"], callback_data="help_callback hb10 settings", style=ButtonStyle.DANGER),
-                InlineKeyboardButton(text="sᴇᴛᴛɪɴɢs", callback_data="help_callback hb44 settings", style=ButtonStyle.DANGER),
+                InlineKeyboardButton(text=_["H_B_10"], callback_data="help_callback hb10 settings", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text="sᴇᴛᴛɪɴɢs", callback_data="help_callback hb44 settings", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text="ᴀssɪsᴛᴀɴᴛ", callback_data="help_callback hb38 settings", style=ButtonStyle.DANGER),
-                InlineKeyboardButton(text=_["H_B_35"], callback_data="help_callback hb35 settings", style=ButtonStyle.DANGER),
+                InlineKeyboardButton(text="ᴀssɪsᴛᴀɴᴛ", callback_data="help_callback hb38 settings", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text=_["H_B_35"], callback_data="help_callback hb35 settings", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text=_["H_B_3"], callback_data="help_callback hb3 settings", style=ButtonStyle.DANGER),
-                InlineKeyboardButton(text=_["H_B_9"], callback_data="help_callback hb9 settings", style=ButtonStyle.DANGER),
+                InlineKeyboardButton(text=_["H_B_3"], callback_data="help_callback hb3 settings", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text=_["H_B_9"], callback_data="help_callback hb9 settings", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text="ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ", callback_data="help_callback hb48 settings", style=ButtonStyle.DANGER),
-                InlineKeyboardButton(text="ᴅᴇᴠ ᴛᴏᴏʟs", callback_data="help_callback hb45 settings", style=ButtonStyle.DANGER),
+                InlineKeyboardButton(text="ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ", callback_data="help_callback hb48 settings", style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton(text="ᴅᴇᴠ ᴛᴏᴏʟs", callback_data="help_callback hb45 settings", style=ButtonStyle.PRIMARY),
             ],
             [
-                InlineKeyboardButton(text=_["H_B_34"], callback_data="help_callback hb34 settings", style=ButtonStyle.DANGER),
+                InlineKeyboardButton(text=_["H_B_34"], callback_data="help_callback hb34 settings", style=ButtonStyle.PRIMARY),
             ],
         ]
 
     buttons.append(
         [
-            InlineKeyboardButton(text=_["BACK_BUTTON"], callback_data="open_help_panel", style=ButtonStyle.PRIMARY),
+            InlineKeyboardButton(text=_["BACK_BUTTON"], callback_data="open_help_panel", style=ButtonStyle.SUCCESS),
             InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close", style=ButtonStyle.DANGER),
         ]
     )
@@ -169,7 +169,7 @@ def help_back_markup(_, category):
                 InlineKeyboardButton(
                     text=_["BACK_BUTTON"],
                     callback_data=f"help_category {category}",
-                    style=ButtonStyle.PRIMARY,
+                    style=ButtonStyle.SUCCESS,
                 ),
                 InlineKeyboardButton(
                     text=_["CLOSE_BUTTON"],
