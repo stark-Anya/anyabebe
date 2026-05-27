@@ -189,3 +189,50 @@ async def get_clone_served_users(bot_id: int) -> list:
     async for doc in col.find({}):
         users.append(doc)
     return users
+
+
+# ── Clone Assistant Client (in-memory) ──────────────────────────────
+# bot_id -> Pyrogram Client
+_clone_assistant_clients: dict = {}
+
+
+def get_clone_assistant_client(bot_id: int):
+    """Clone ka assistant Pyrogram client lo (agar set hai)."""
+    return _clone_assistant_clients.get(bot_id)
+
+
+def set_clone_assistant_client(bot_id: int, client):
+    """Clone ka assistant client memory mein store karo."""
+    _clone_assistant_clients[bot_id] = client
+
+
+async def load_clone_assistant(bot_id: int):
+    """
+    DB se string session lo aur Pyrogram client banao.
+    Bot restart pe call karo.
+    """
+    from pyrogram import Client as PyroClient
+    import config
+
+    string_session = await get_clone_assistant(bot_id)
+    if not string_session:
+        return None
+
+    try:
+        client = PyroClient(
+            name=f"clone_assistant_{bot_id}",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=string_session,
+            no_updates=True,
+            in_memory=True,
+        )
+        await client.start()
+        _clone_assistant_clients[bot_id] = client
+        from SANYAMUSIC import LOGGER
+        LOGGER("clone_db").info(f"Clone {bot_id} assistant started: {client.me.mention}")
+        return client
+    except Exception as e:
+        from SANYAMUSIC import LOGGER
+        LOGGER("clone_db").error(f"Clone {bot_id} assistant failed: {e}")
+        return None
