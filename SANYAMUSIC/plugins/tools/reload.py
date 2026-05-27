@@ -41,7 +41,7 @@ async def reload_admin_cache(client, message: Message, _):
         async for user in app.get_chat_members(
             message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
         ):
-            if user.privileges.can_manage_video_chats:
+            if user.user and not user.user.is_bot:
                 adminlist[message.chat.id].append(user.user.id)
         authusers = await get_authuser_names(message.chat.id)
         for user in authusers:
