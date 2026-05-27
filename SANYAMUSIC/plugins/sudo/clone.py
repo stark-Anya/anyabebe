@@ -350,6 +350,14 @@ async def restart_clones():
             await client.start()
             # Forced join removed
             clone_bot_clients[clone['bot_id']] = client
+
+            # Clone ka assistant load karo agar set hai
+            try:
+                from SANYAMUSIC.utils.clone_db import load_clone_assistant
+                await load_clone_assistant(clone['bot_id'])
+            except Exception as e:
+                print(f"[Clone Assistant] Failed for {clone['bot_id']}: {e}")
+
             await asyncio.sleep(1)
         except Exception:
             print(f"[Clone Error] Failed to restart clone for user {clone['user_id']}:")
