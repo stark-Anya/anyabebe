@@ -395,15 +395,26 @@ async def add_string_session(client, message: Message):
         )
 
     bot_id = _get_bot_id(client)
-    from SANYAMUSIC.utils.clone_db import set_clone_assistant
+    from SANYAMUSIC.utils.clone_db import set_clone_assistant, load_clone_assistant
     await set_clone_assistant(bot_id, string_session)
 
-    await message.reply_text(
-        "✅ <b>Assistant string session saved!</b>\n\n"
-        "Your bot will now use your own assistant for voice chats.\n"
-        "<i>Restart your bot to apply changes.</i>",
-        parse_mode=enums.ParseMode.HTML,
-    )
+    # Turant load karo — restart ki zaroorat nahi
+    loaded = await load_clone_assistant(bot_id)
+
+    if loaded:
+        await message.reply_text(
+            f"✅ <b>Assistant started successfully!</b>\n\n"
+            f"👤 Assistant: <b>{loaded.me.mention}</b>\n"
+            f"<i>Your bot will now use your own assistant for voice chats.</i>",
+            parse_mode=enums.ParseMode.HTML,
+        )
+    else:
+        await message.reply_text(
+            "⚠️ <b>String session saved but assistant failed to start.</b>\n\n"
+            "Please check your string session and try again.\n"
+            "<i>Restart the bot to retry.</i>",
+            parse_mode=enums.ParseMode.HTML,
+        )
 
 
 # ── /cstats — Clone bot stats (main owner only) ──────────────────────
