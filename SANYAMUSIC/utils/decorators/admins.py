@@ -76,24 +76,34 @@ def AdminRightsCheck(mystic):
         is_non_admin = await is_nonadmin_chat(message.chat.id)
         if not is_non_admin:
             if message.from_user.id not in SUDOERS:
-                admins = adminlist.get(message.chat.id)
-                if not admins:
-                    # Auto-load admins if not cached
+                is_clone = getattr(client, "is_clone", False)
+                if is_clone:
+                    # Clone bot — directly check admin status
                     try:
-                        from pyrogram.enums import ChatMembersFilter
-                        adminlist[message.chat.id] = []
-                        async for user in app.get_chat_members(
-                            message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
-                        ):
-                            if user.user and not user.user.is_bot:
-                                adminlist[message.chat.id].append(user.user.id)
-                        admins = adminlist.get(message.chat.id)
+                        from pyrogram.enums import ChatMemberStatus
+                        member = await client.get_chat_member(message.chat.id, message.from_user.id)
+                        if member.status not in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
+                            if not await is_skipmode(message.chat.id):
+                                return await message.reply_text(_["admin_14"])
                     except:
-                        return await message.reply_text(_["admin_13"])
-                if not admins:
-                    return await message.reply_text(_["admin_13"])
+                        return await message.reply_text(_["admin_14"])
                 else:
-                    if message.from_user.id not in admins:
+                    admins = adminlist.get(message.chat.id)
+                    if not admins:
+                        try:
+                            from pyrogram.enums import ChatMembersFilter
+                            adminlist[message.chat.id] = []
+                            async for user in app.get_chat_members(
+                                message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
+                            ):
+                                if user.user and not user.user.is_bot:
+                                    adminlist[message.chat.id].append(user.user.id)
+                            admins = adminlist.get(message.chat.id)
+                        except:
+                            return await message.reply_text(_["admin_13"])
+                    if not admins:
+                        return await message.reply_text(_["admin_13"])
+                    elif message.from_user.id not in admins:
                         if await is_skipmode(message.chat.id):
                             upvote = await get_upvote_count(chat_id)
                             text = f"""<b>ᴀᴅᴍɪɴ ʀɪɢʜᴛs ɴᴇᴇᴅᴇᴅ</b>
