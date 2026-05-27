@@ -78,6 +78,19 @@ def AdminRightsCheck(mystic):
             if message.from_user.id not in SUDOERS:
                 admins = adminlist.get(message.chat.id)
                 if not admins:
+                    # Auto-load admins if not cached
+                    try:
+                        from pyrogram.enums import ChatMembersFilter
+                        adminlist[message.chat.id] = []
+                        async for user in app.get_chat_members(
+                            message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
+                        ):
+                            if user.user and not user.user.is_bot:
+                                adminlist[message.chat.id].append(user.user.id)
+                        admins = adminlist.get(message.chat.id)
+                    except:
+                        return await message.reply_text(_["admin_13"])
+                if not admins:
                     return await message.reply_text(_["admin_13"])
                 else:
                     if message.from_user.id not in admins:
